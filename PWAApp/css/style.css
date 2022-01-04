@@ -1,0 +1,63 @@
+.wrapper_all {
+  width: 100%;
+  text-align: center;
+  margin-top: 200px;
+}
+
+.wrapper_login {
+  margin: auto;
+}
+
+.login_header {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+@media (min-width: 700px) {
+  .login_header {
+    width: 49%;
+  }
+}
+.login_header .login_logo {
+  width: 100%;
+}
+.login_header .login_title {
+  width: 100%;
+  text-align: center;
+}
+
+.login_logo__image {
+  width: 100px;
+  height: 100px;
+}
+@media (min-width: 700px) {
+  .login_logo__image {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.login_body {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+@media (min-width: 700px) {
+  .login_body {
+    width: 50%;
+  }
+}
+.login_body .login_data {
+  width: 100%;
+  margin-top: 30px;
+}
+@media (min-width: 700px) {
+  .login_body .login_data {
+    margin-top: 0px;
+  }
+}
+.login_body .login_btns {
+  width: 100%;
+}
+
+/*# sourceMappingURL=style.css.map */

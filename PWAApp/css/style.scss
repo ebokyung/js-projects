@@ -1,0 +1,66 @@
+$width: 100%;
+$align: center;
+
+/* James' comment 
+$default_width: 100%;
+
+$resp_p1: 700px;
+$resp_p1_width: 50%;
+
+$align_center: center;
+*/
+
+.wrapper_all{
+    width: $width;
+    text-align: $align;
+    margin-top: 200px;
+}
+
+.wrapper_login{
+    margin: auto;
+}
+
+.login_header {
+    display: inline-block;
+    width: $width;
+    text-align: $align;
+    @media (min-width: 700px){
+        width: 49%;
+    }
+    .login_logo {
+        width: $width;
+    }
+    .login_title {
+        width: $width;
+        text-align: $align;
+    }
+}
+.login_logo__image {
+    width:100px;
+    height:100px;
+    @media (min-width: 700px) {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+.login_body{
+    display: inline-block;
+    width: $width;
+    text-align: $align;
+    @media (min-width: 700px){
+        width: 50%;
+    }
+    .login_data{
+        width: 100%;
+        margin-top: 30px;
+        @media (min-width: 700px){
+            margin-top: 0px;
+        }
+    }
+    .login_btns{
+        width: 100%;
+    }
+
+}
+
