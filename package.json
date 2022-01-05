@@ -1,0 +1,18 @@
+{
+  "name": "Pwa-Build",
+  "version": "1.0.0",
+  "description": "CwS PWA service worker build",
+  "author": "James Chang",
+  "scripts": {
+    "localDev": "node sw_build_pwa-dev.js && xcopy pwa-dev C:\\Work\\tomcat8\\webapps\\pwa-dev /E/H/C/I/Y"
+  },
+  "dependencies": {
+    "requirejs": "1.0.0",
+    "uglify-js": "^3.10.1",
+    "workbox-webpack-plugin": "^6.3.0",
+    "workbox-window": "^6.3.0"
+  },
+  "devDependencies": {
+    "workbox-build": "^6.3.0"
+  }
+}
