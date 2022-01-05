@@ -10,14 +10,17 @@ $resp_p1_width: 50%;
 $align_center: center;
 */
 
-.wrapper_all{
+// .wrapper_all{
+//     width: $width;
+//     text-align: $align;
+//     margin-top: 200px;
+// }
+
+.wrapper_login{
     width: $width;
     text-align: $align;
     margin-top: 200px;
-}
-
-.wrapper_login{
-    margin: auto;
+    //margin: auto;
 }
 
 .login_header {
