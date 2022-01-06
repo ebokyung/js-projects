@@ -7,8 +7,8 @@
   "background_color": "#ffc61d",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "start_url": "/PWAApp/?utm_source=standalone&utm_medium=pwa",
-  "scope": "/PWAApp/",  
+  "start_url": "/",
+  "scope": "/",  
   "icons": [{
     "src": "images/icons/Connect_144px.png",
     "sizes": "144x144",
