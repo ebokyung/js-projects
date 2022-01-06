@@ -1,101 +1,127 @@
-console.log( 'testing' );
-
-// '$()' <-- Jquery statement..
-$(document).ready( function () 
+// -------------------------------------------
+// -- Action Class/Methods
+// class Action( -- )
+function App()
 {
-    var btnLoginTag = $( '.btnLogin' );
-    var loginID = 'tester';
-    var loginPW = '1234';
+    var me = this;
+
+    // -------------------------
+    // Variables
+
+    me.var1 = '';
+
+    me.btnLoginTag = $( '.btnLogin' );
+    me.loginID = 'tester';
+    me.loginPW = '1234';
     
-    var btnAddList = $('.addList_btn');
-    var btnSubmitList = $('.submit_btn');
-    var listContents = document.querySelectorAll('.list_content');
+    me.btnAddList = $('.addList_btn');
+    me.btnSubmitList = $('.submit_btn');
+    me.listContents = document.querySelectorAll('.list_content');
 
-    var view1 = document.querySelector('.wrapper_login');
-    var view2 = document.querySelector('.wrapper_list');
-    var view3 = document.querySelector('.wrapper_entry');
+    me.view1 = document.querySelector('.wrapper_login');
+    me.view2 = document.querySelector('.wrapper_list');
+    me.view3 = document.querySelector('.wrapper_entry');
 
-    console.log( 'jQuery document ready.. - ' );
 
-    // '$("p")' <-- any p type dom click, hide itself..
-    
-    displayLastLoginTime();
+    // -------------------------
+    // Methods
 
-    testJqueryP();
-
-    btnLoginTag.click( function() 
+    me.run = function()
     {
-        // Process login here..
-        var input_username_tag = $('.input_username');
-        var input_password_tag = $('.input_password');
-        
-        
-        if(input_username_tag.val() === loginID 
-            && input_password_tag.val() === loginPW)
-        {
-            alert('login success');
+        me.displayLastLoginTime();
 
-            setLastLoginTime( new Date() );
+        me.testJqueryP();
 
-            displayLastLoginTime();
+        me.setupEventsHandle();
 
-            view1.classList.add('hide_view');
-            view2.classList.remove('hide_view');
-
-            clearList();        
-            displayList( getInfo() );
-
-        }
-        else
-        {
-            alert('login failed');
-        }
-        
-    });
-
-    btnAddList.click(function()
-    {
-        view2.classList.add('hide_view');
-        view3.classList.remove('hide_view');        
-    });
-
-    btnSubmitList.click(function()
-    {
-        setInfo( new Date() );
-
-        addList();
-
-        view2.classList.remove('hide_view');
-        view3.classList.add('hide_view');
-    });
-
-    listContents.forEach(function(item){
-        item.addEventListener('click',function()
-        {
-            console.log('i want to see the detail info');
-        });
-    });
-    
-
-
-    // ----------------------------
-    function testJqueryP()
-    {
-        console.log( 'p how many: ' + $("p").length );
-        $("p").click( function() 
-        { 
-            $(this).hide(); 
-        });    
+        me.listItemClicksTry();
     };
 
+
+    // ---------------------
+    // Events handler
+
+    me.setupEventsHandle = function()
+    {
+        me.btnLoginTag.click( function() 
+        {
+            // Process login here..
+            var input_username_tag = $('.input_username');
+            var input_password_tag = $('.input_password');
+            
+            if( input_username_tag.val() === me.loginID 
+                && input_password_tag.val() === me.loginPW)
+            {
+                alert('login success');
+                
+                //me.loginSuccessRun();
+
+                me.setLastLoginTime( new Date() );
+    
+                me.displayLastLoginTime();
+    
+                me.view1.classList.add('hide_view');
+                me.view2.classList.remove('hide_view');
+    
+                me.clearList();        
+                me.displayList( me.getInfo() );
+    
+            }
+            else
+            {
+                alert('login failed');
+            }
+            
+        });
+    
+
+        me.btnAddList.click(function()
+        {
+            me.view2.classList.add('hide_view');
+            me.view3.classList.remove('hide_view');        
+        });
+    
+
+        me.btnSubmitList.click(function()
+        {
+            me.setInfo( new Date() );
+    
+            me.addList();
+    
+            me.view2.classList.remove('hide_view');
+            me.view3.classList.add('hide_view');
+        });
+    
+    };
+
+
+    // ---------------------
+    // Other Class Methods
+
+    me.listItemClicksTry = function()
+    {
+        var listItemTags = $( '.list_content').find( 'div.single_list_container' );
+
+        listItemTags.each( function(itemTag) 
+        {
+            itemTag.click( function( e )
+            {
+                console.log('i want to see the detail info');
+                alert( 'item info - div need to have unique attribute id' );
+            });
+        });        
+    };
+
+
+
     // ----------------------------
 
-    function setLastLoginTime( lastLoginTime )
+    me.setLastLoginTime = function( lastLoginTime )
     {
         localStorage.setItem( "lastLoginTime", lastLoginTime.toString() );
     };
 
-    function displayLastLoginTime()
+    me.displayLastLoginTime = function()
     {
         $('.spanLastLoginTime').text( localStorage.getItem('lastLoginTime') );
     };
@@ -103,12 +129,12 @@ $(document).ready( function ()
 
     // -----------------------------
 
-    function getInfo()
+    me.getInfo = function()
     {
-        return localStorage.getItem('list')?JSON.parse(localStorage.getItem('list')):[];
+        return localStorage.getItem('list') ? JSON.parse( localStorage.getItem('list') ) : [];
     }
 
-    function setInfo( id )
+    me.setInfo = function( id )
     {
         var input_firstName = $('#firstname');
         var input_lastName = $('#lastname');
@@ -127,70 +153,63 @@ $(document).ready( function ()
             phoneNumber: input_phoneNumber.val(),
         }
 
-        var list = getInfo();
-        list.push(info);
+        var list = me.getInfo();
+        list.push( info );
     
-        localStorage.setItem('list',JSON.stringify(list))
-    }
+        localStorage.setItem( 'list', JSON.stringify( list ) );
+    };
 
-    function addList()
+    me.addList = function()
     {
-        var list = getInfo();
+        var list = me.getInfo();
         var info = list.pop();
         //console.log(info);
         
         var listContainerTag = $('.list_container');
-        listContainerTag.append( generateItemTag( info ) );
-        /*
-        var listContainer = document.querySelector('.list_container');
-        listContainer.innerHTML += ` <div class="single_list_container">
-                                        <div class="list_icon">
-                                            <i class="fas fa-user-tie"></i>
-                                        </div>
-                                        <div class="list_content">
-                                            <div class="list_date">
-                                                ${info.id}
-                                            </div>
-                                            <div class="list_user">
-                                                ${info.firstname} ${info.lastname}
-                                            </div>
-                                        </div>
-                                    </div>`
-        */
-    }
+        listContainerTag.append( me.generateItemTag( info ) );
+    };
 
 
-    function clearList()
+    me.clearList = function()
     {
         var listContainerTag = $('.list_container');
         listContainerTag.find( '.single_list_container' ).remove();
     };
 
-    function displayList( list )
+    me.displayList = function( list )
     {
         var listContainerTag = $('.list_container');
 
         list.forEach( item => {
-            listContainerTag.append( generateItemTag( item ) );
+            listContainerTag.append( me.generateItemTag( item ) );
         });
     };
 
-    function generateItemTag( item )
+    me.generateItemTag = function( item )
     {
         return $( ` <div class="single_list_container">
-        <div class="list_icon">
-            <i class="fas fa-user-tie"></i>
-        </div>
-        <div class="list_content">
-            <div class="list_date">
-                ${item.id}
+            <div class="list_icon">
+                <i class="fas fa-user-tie"></i>
             </div>
-            <div class="list_user">
-                ${item.firstname} ${item.lastname}
+            <div class="list_content">
+                <div class="list_date">
+                    ${item.id}
+                </div>
+                <div class="list_user">
+                    ${item.firstname} ${item.lastname}
+                </div>
             </div>
-        </div>
-    </div>` );
-
+        </div>` );
     };
 
-});
+    // ----------------------------
+    me.testJqueryP = function()
+    {
+        console.log( 'p how many: ' + $("p").length );
+        $("p").click( function() 
+        { 
+            $(this).hide(); 
+        });    
+    };
+
+};

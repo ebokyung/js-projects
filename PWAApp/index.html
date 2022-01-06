@@ -41,7 +41,24 @@
         <link rel="stylesheet" href="css/all.min.css">
         <script src="js/serviceWorkerStart.js"></script>        
         <script src="js/libraries/jquery-3.4.1.min.js"></script>
+
+        <script src="js/itemList.js"></script>
+        <script src="js/itemEntry.js"></script>
+
         <script src="js/app.js"></script>
+
+        <script>
+            // '$()' <-- Jquery statement..
+            $(document).ready( function () 
+            {
+                // If Static - is better, but will try later..
+                // App.run();
+
+                // App class nstance ones
+                var appObj = new App();
+                appObj.run();
+            });            
+        </script>
     </head>
     <body>
         <!-- view 1 -->
