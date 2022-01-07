@@ -62,37 +62,40 @@
     </head>
     <body>
         <!-- view 1 -->
-        <div class="wrapper_login">
+        <div class="wrapper_login ">
             <!-- header -->
             <div class="login_header">
                 <div class="login_logo">
                     <img class="login_logo__image" src="images/logo.svg">
                 </div>
                 <div class="login_title">BK - my first app</div>
-                <p style="border: solid 1px yellow; cursor: pointer;">I am sleepy..</p>
+                <!-- <p style="border: solid 1px yellow; cursor: pointer;">I am sleepy..</p>
                 <p style="border: solid 1px yellow; cursor: pointer;">I am bad..</p>
-                <p style="border: solid 1px yellow; cursor: pointer;">I am good..</p>
+                <p style="border: solid 1px yellow; cursor: pointer;">I am good..</p> -->
             </div>
             <!-- body -->
             <div class="login_body">
                 <div class="login_data">
                     <div class="login_username">
-                        <input class='input_username' placeholder="username or email" style="width: 250px;">
+                        <input class='input_username' placeholder="username or email" >
                     </div>
                     <div class="login_password">
-                        <input class='input_password' placeholder="password" style="width: 250px;">
+                        <input class='input_password' placeholder="password">
                     </div>
                 </div>
 
-                <div class="login_btns" style="margin-top: 20px;">
-                    <div class="divLogin">
-                        <button class="btnLogin" style="width: 150px;">Log In</button>
+                <div class="login_btns" >
+                    <div class="divBtns">
+                        <div class="divLogin">
+                            <button class="btnLogin" >Log In</button>
+                        </div>
+                        <div class="divSignin">
+                            <button class="btnSignin" >Create new account</button>
+                        </div>
                     </div>
-                    <div class="divSignin">
-                        <button class="btnSignin" style="width: 150px;">Create new account</button>
-                    </div>
+                    
                     <div>
-                        <a href=# style="font-size: 14px;">Fogot password?</a>
+                        <a href=#>Fogot password?</a>
                     </div>
                     <div class="divLastLoginTime">
                         <span>Last Login:</span>
@@ -107,38 +110,49 @@
             <!-- nav -->
             <nav class="navbar">
                <div class="nav_icon" >
-                    <button class="nav_toggle">
-                        <i class="fas fa-bars"></i>
+                    <button class="nav_toggle menu_btn">
+                        <img src="images/bars.svg" alt=""/>
                     </button>
                 </div>
                 <div class="nav_title">
                     Record List
                 </div> 
             </nav>
+            <!-- sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar_header">
+                    <img src="images/logo.svg" style="width: 50px; height: 50px; " alt="">
+                    BK PWA APP
+                    <img class="close_btn" src="images/times.svg" alt="">
+                </div>
+                <div class="sidebar_links">
+                    <ul>
+                        <li>
+                            <img src="images/logo.svg" alt="">
+                            <a id="settings">Settings</a>
+                        </li>
+                        <li>
+                            <img src="images/logo.svg" alt="">
+                            <a id="about">About</a> 
+                        </li>
+                        <hr>
+                        <li>
+                            <img src="images/logo.svg" alt="">
+                            <a id="logout">Log Out</a> 
+                        </li>
+                    </ul>
+                </div>
+            </aside>
 
             <!-- list -->
             <div class="list_container">
-                <!-- single list -->
-                <div class="single_list_container">
-                    <div class="list_icon">
-                         <i class="fas fa-user-tie"></i>
-                    </div>
-                    <div class="list_content">
-                        <div class="list_date">
-                            2022-01-04
-                        </div>
-                        <div class="list_user">
-                            list1
-                        </div>
-                    </div>
-                </div>
-                <!-- end of single list -->
+                
             </div>
 
             <!-- plus btn -->
             <div class="addList">
                 <button class="addList_btn">
-                    <i class="fas fa-plus-circle"></i>
+                    <img src="images/plus-circle.svg" alt="">
                 </button>
             </div>
 
@@ -149,12 +163,12 @@
             <!--  -->
             <nav class="navbar">
                 <div class="nav_icon" >
-                     <button class="nav_toggle">
-                         <i class="fas fa-arrow-left"></i>
+                     <button class="nav_toggle back_btn">
+                        <img src="images/arrow-left.svg" alt="">
                      </button>
                  </div>
                  <div class="nav_title">
-                     back
+                     Back
                  </div> 
              </nav>
              <!-- -->

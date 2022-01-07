@@ -23,7 +23,6 @@ function App()
     me.view1 = document.querySelector('.wrapper_login');
     me.view2 = document.querySelector('.wrapper_list');
     me.view3 = document.querySelector('.wrapper_entry');
-
     me.sidebar = document.querySelector('.sidebar');
 
     // -------------------------
@@ -33,10 +32,11 @@ function App()
     {
         me.displayLastLoginTime();
 
-        //me.testJqueryP();
+        me.testJqueryP();
 
         me.setupEventsHandle();
 
+        me.listItemClicksTry();
     };
 
 
@@ -66,7 +66,7 @@ function App()
                 me.view2.classList.remove('hide_view');
     
                 me.clearList();        
-                me.displayList( me.getData_ItemList() );
+                me.displayList( me.getInfo() );
     
             }
             else
@@ -86,10 +86,9 @@ function App()
 
         me.btnSubmitList.click(function()
         {
-            var item = me.createFormItem( new Date() );
-
-            me.setData_Item( item );
-            me.addToDisplayList( item );
+            me.setInfo( new Date() );
+    
+            me.addList();
     
             me.view2.classList.remove('hide_view');
             me.view3.classList.add('hide_view');
@@ -110,8 +109,32 @@ function App()
             me.view3.classList.add('hide_view');
             me.view2.classList.remove('hide_view');
         });
+
+
     
     };
+
+
+    // ---------------------
+    // Other Class Methods
+
+    me.listItemClicksTry = function()
+    {
+        var listItemTags = $( '.single_list_container' );
+        console.log(listItemTags);
+
+        listItemTags.forEach( function(listitemTag) 
+        {
+            console.log(listitemTag);
+            // var itemTag = listitemTag.find('div.list_content');
+            // itemTag.click( function( e )
+            // {
+            //     alert( 'item info - div need to have unique attribute id' );
+            //     console.log(e.dataset.id);
+            // });
+        });        
+    };
+
 
 
     // ----------------------------
@@ -129,33 +152,12 @@ function App()
 
     // -----------------------------
 
-    me.getData_ItemList = function()
+    me.getInfo = function()
     {
         return localStorage.getItem('list') ? JSON.parse( localStorage.getItem('list') ) : [];
-    };
+    }
 
-    me.setData_ItemList = function( list )
-    {
-        localStorage.setItem( 'list', JSON.stringify( list ) );
-    };
-
-    me.setData_Item = function( item )
-    {
-        var list = me.getData_ItemList();
-        list.push( item );
-        me.setData_ItemList( list );
-    };
-
-    //  get item by index of list 
-    me.getData_Item = function( i )
-    {
-        var list = me.getData_ItemList();
-        return list[i];
-    };
-
-    // -----------------
-
-    me.createFormItem = function( id )
+    me.setInfo = function( id )
     {
         var input_firstName = $('#firstname');
         var input_lastName = $('#lastname');
@@ -174,14 +176,20 @@ function App()
             phoneNumber: input_phoneNumber.val(),
         }
 
-        return info;
+        var list = me.getInfo();
+        list.push( info );
+    
+        localStorage.setItem( 'list', JSON.stringify( list ) );
     };
 
-
-    me.addToDisplayList = function( item )
-    {        
+    me.addList = function()
+    {
+        var list = me.getInfo();
+        var info = list.pop();
+        //console.log(info);
+        
         var listContainerTag = $('.list_container');
-        listContainerTag.append( me.generateItemTag( item ) );
+        listContainerTag.append( me.generateItemTag( info ) );
     };
 
 
@@ -202,7 +210,7 @@ function App()
 
     me.generateItemTag = function( item )
     {
-        var itemTag = $( ` <div class="single_list_container" item-id="${item.id}" >
+        return $( ` <div class="single_list_container" data-id=${item.id} >
             <div class="list_icon">
                 <img src="images/user-tie.svg" alt=""/>
             </div>
@@ -215,15 +223,6 @@ function App()
                 </div>
             </div>
         </div>` );
-
-
-        itemTag.click( function( e ) {
-
-            console.log( item );
-            alert( JSON.stringify( item ) );
-        });
-
-        return itemTag;
     };
 
     // ----------------------------
