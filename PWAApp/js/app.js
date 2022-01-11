@@ -42,6 +42,31 @@ function App()
 
         me.setupEventsHandle();
 
+
+        // Start background service..
+
+        
+
+        //BKSerivce.addRunFunc( function() {
+        //     me.updateTime_Display();
+        //} );
+
+        
+        BKSerivce.addRunFunc( me.updateTime_Display );
+
+        BKSerivce.start();
+
+    };
+
+
+    me.updateTime_Display = function()
+    {
+        var newTime = new Date();
+        //console.log( newTime.toString() );
+
+        var timeStr = newTime.toTimeString().substring( 0, 8);
+
+        $( '.topNav_time' ).text( timeStr );
     };
 
 
