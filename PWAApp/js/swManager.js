@@ -148,4 +148,6 @@ function serviceWorkerStart() {
 
 //serviceWorkerStart();
 
+SWManager.startUp();
+
 // ============================================
