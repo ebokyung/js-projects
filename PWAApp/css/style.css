@@ -10,6 +10,22 @@ body{
   margin:0;
 }
 
+/* .screen_full{
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  bottom: 0px;
+  left: 0px;
+  top: 0px;
+  z-index: 1600;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: auto;
+} */
+
+
+/* ---------------- */
 .wrapper_login {
   width: 100%;
   text-align: center;
@@ -62,7 +78,7 @@ body{
 }
 .login_body .login_data {
   width: 100%;
-  margin-top: 80px;
+  margin-top: 60px;
 }
 @media (min-width: 700px) {
   .login_body .login_data {
@@ -100,9 +116,10 @@ body{
 
 .divBtns{
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-around;
   padding: 0 10px;
+  width: 400px;
+  margin: auto;
 }
 .divLogin{
   width: 49%;
@@ -135,6 +152,12 @@ body{
   display: none;
 }
 
+/* .wrapper_list {
+  z-index: 100;
+  width: 100%;
+  position: fixed;
+} */
+
 
 .navbar {
   width: 100%; 
@@ -161,7 +184,9 @@ body{
   float: left;
   font-size: 18px;
 }
+/* -------------------------------- */
 .sidebar {
+  /* z-index: 10; */
   position: fixed;
   top: 0;
   left: 0;
@@ -222,7 +247,7 @@ hr {
   display: inline-block;
   cursor: pointer;
 }
-.addList_btn{
+.addItem_btn{
   position: fixed;
   bottom: 3rem;
   right: 3rem;
@@ -231,6 +256,11 @@ hr {
   cursor: pointer;
 }
 
+/* ----------------------- */
+/* .wrapper_entry{
+  z-index: 1;
+  position: fixed;
+} */
 
 .entry_container{
   text-align: center;
@@ -253,6 +283,12 @@ hr {
   text-transform: uppercase;
   cursor: pointer;
 }
+
+/* ------------------ */
+.divContent{
+  display: inline-block;
+}
+
 
 
 /*# sourceMappingURL=style.css.map */

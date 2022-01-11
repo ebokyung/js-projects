@@ -61,14 +61,17 @@
         </script>
     </head>
     <body>
-        <!-- view 1 -->
+        <!-------------------- login page ----------------->
         <div class="wrapper_login ">
             <!-- header -->
             <div class="login_header">
                 <div class="login_logo">
                     <img class="login_logo__image" src="images/logo.svg">
                 </div>
-                <div class="login_title">BK - my first app</div>
+                <div class="login_title" style="margin-top: 5px; font:bold; font-size: large;">BK - my first app</div>
+                <div style="margin-top: 10px;">
+                    <label id="spanVersion" style="color: #999999; font-weight: 350; ">Version 1.0.0</label>
+                </div>
                 <!-- <p style="border: solid 1px yellow; cursor: pointer;">I am sleepy..</p>
                 <p style="border: solid 1px yellow; cursor: pointer;">I am bad..</p>
                 <p style="border: solid 1px yellow; cursor: pointer;">I am good..</p> -->
@@ -105,8 +108,8 @@
             </div>
         </div>
 
-        <!-- view 2 -->
-        <div class="wrapper_list hide_view">
+        <!----------------------- main page ------------------------>
+        <div class="wrapper_list hide_view" >
             <!-- nav -->
             <nav class="navbar">
                <div class="nav_icon" >
@@ -118,47 +121,51 @@
                     Record List
                 </div> 
             </nav>
+            <!-- list -->
+            <div class="list_container">
+                
+            </div>
+            <!-- add items btn -->
+            <div class="addItem">
+                <button class="addItem_btn">
+                    <img src="images/plus-circle.svg" alt="">
+                </button>
+            </div>
+
             <!-- sidebar -->
             <aside class="sidebar">
                 <div class="sidebar_header">
                     <img src="images/logo.svg" style="width: 50px; height: 50px; " alt="">
                     BK PWA APP
-                    <img class="close_btn" src="images/times.svg" alt="">
+                    <img class="close_btn" src="images/times.svg" alt="" style="cursor: pointer;">
                 </div>
-                <div class="sidebar_links">
-                    <ul>
-                        <li>
+                <div class="sidebar_links_container">
+                    <ul class="sidebar_links">
+                        <li >
                             <img src="images/logo.svg" alt="">
-                            <a id="settings">Settings</a>
-                        </li>
-                        <li>
-                            <img src="images/logo.svg" alt="">
-                            <a id="about">About</a> 
+                            <a class="sidebar_link" id="entry">Add Items</a>
                         </li>
                         <hr>
-                        <li>
+                        <li >
                             <img src="images/logo.svg" alt="">
-                            <a id="logout">Log Out</a> 
+                            <a class="sidebar_link" id="setting">Settings</a>
+                        </li>
+                        <li >
+                            <img src="images/logo.svg" alt="">
+                            <a class="sidebar_link" id="about">About</a> 
+                        </li>
+                        <hr>
+                        <li >
+                            <img src="images/logo.svg" alt="">
+                            <a class="sidebar_link" id="log">Log Out</a> 
                         </li>
                     </ul>
                 </div>
             </aside>
-
-            <!-- list -->
-            <div class="list_container">
-                
-            </div>
-
-            <!-- plus btn -->
-            <div class="addList">
-                <button class="addList_btn">
-                    <img src="images/plus-circle.svg" alt="">
-                </button>
-            </div>
-
         </div>
 
-        <!-- view3 -->
+        <!------------------ forms --------------------->
+        <!-- Item entry form -->
         <div class="wrapper_entry hide_view">
             <!--  -->
             <nav class="navbar">
@@ -183,7 +190,73 @@
                 </div>
                 <button class="submit_btn">s u b m i t</button>
             </div>
+        </div>
+        <!-- settings form -->
+        <div class="wrapper_setting hide_view">
+            <!--  -->
+            <nav class="navbar">
+                <div class="nav_icon" >
+                     <button class="nav_toggle back_btn">
+                        <img src="images/arrow-left.svg" alt="">
+                     </button>
+                 </div>
+                 <div class="nav_title">
+                    Settings
+                 </div> 
+             </nav>
+             <!--  -->
+             <div class="setting_container">
+                <div>
+                    <p>
+                        세팅중
+                    </p>
+                </div>
+             </div>
+        </div>
+        <!-- about form -->
+        <div class="wrapper_about hide_view">
+            <!--  -->
+            <nav class="navbar">
+                <div class="nav_icon" >
+                     <button class="nav_toggle back_btn">
+                        <img src="images/arrow-left.svg" alt="">
+                     </button>
+                 </div>
+                 <div class="nav_title">
+                    About
+                 </div> 
+             </nav>
+             <!--  -->
+             <div class="about_container">
+                <div>
+                    <p>
+                        Application version : 1.0.0 ver
+                    </p>
+                    <p>
+                        Network mode : online
+                    </p>
+                    <p>
+                        Info : ...
+                    </p>
+                </div>
+             </div>
+        </div>
 
+        <!-- detail info form -->
+        <div class="wrapper_detail hide_view">
+            <nav class="navbar">
+                <div class="nav_icon" >
+                     <button class="nav_toggle back_btn">
+                        <img src="images/arrow-left.svg" alt="">
+                     </button>
+                 </div>
+                 <div class="nav_title">
+                    detail info 
+                 </div> 
+             </nav>
+             <div class="detail_container">
+                 
+             </div>
         </div>
         
 

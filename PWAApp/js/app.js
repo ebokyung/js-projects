@@ -14,17 +14,22 @@ function App()
     me.loginID = 'tester';
     me.loginPW = '1234';
     
-    me.btnAddList = $('.addList_btn');
-    me.btnSubmitList = $('.submit_btn');
+    me.btnAddItem = $('.addItem_btn');
+    me.btnSubmit = $('.submit_btn');
     me.btnMenu = $('.menu_btn');
     me.btnClose = $('.close_btn');
     me.btnBack = $('.back_btn');
 
-    me.view1 = document.querySelector('.wrapper_login');
-    me.view2 = document.querySelector('.wrapper_list');
-    me.view3 = document.querySelector('.wrapper_entry');
+    me.log = document.querySelector('.wrapper_login');
+    me.main = document.querySelector('.wrapper_list');
+    me.entry = document.querySelector('.wrapper_entry');
+    me.about = document.querySelector('.wrapper_about');
+    me.setting = document.querySelector('.wrapper_setting');
+    me.detail = document.querySelector('.wrapper_detail');
+    me.detailPage = $( '.wrapper_detail' );
 
     me.sidebar = document.querySelector('.sidebar');
+    me.links = document.querySelectorAll('.sidebar_link');
 
     // -------------------------
     // Methods
@@ -62,8 +67,8 @@ function App()
     
                 me.displayLastLoginTime();
     
-                me.view1.classList.add('hide_view');
-                me.view2.classList.remove('hide_view');
+                me.log.classList.add('hide_view');
+                me.main.classList.remove('hide_view');
     
                 me.clearList();        
                 me.displayList( me.getData_ItemList() );
@@ -74,25 +79,28 @@ function App()
                 alert('login failed');
             }
             
+            input_username_tag.val('');
+            input_password_tag.val('');
+
         });
     
 
-        me.btnAddList.click(function()
+        me.btnAddItem.click(function()
         {
-            me.view2.classList.add('hide_view');
-            me.view3.classList.remove('hide_view');        
+            me.main.classList.add('hide_view');
+            me.entry.classList.remove('hide_view');        
         });
     
 
-        me.btnSubmitList.click(function()
+        me.btnSubmit.click(function()
         {
-            var item = me.createFormItem( new Date() );
+            var item = me.createFormItem();
 
             me.setData_Item( item );
             me.addToDisplayList( item );
     
-            me.view2.classList.remove('hide_view');
-            me.view3.classList.add('hide_view');
+            me.main.classList.remove('hide_view');
+            me.entry.classList.add('hide_view');
         });
 
         me.btnMenu.click(function()
@@ -107,10 +115,15 @@ function App()
 
         me.btnBack.click(function()
         {
-            me.view3.classList.add('hide_view');
-            me.view2.classList.remove('hide_view');
+            me.entry.classList.add('hide_view');
+            me.about.classList.add('hide_view');
+            me.setting.classList.add('hide_view');
+            me.detail.classList.add('hide_view'); //??
+
+            me.main.classList.remove('hide_view');
         });
-    
+
+
     };
 
 
@@ -146,16 +159,35 @@ function App()
         me.setData_ItemList( list );
     };
 
+    
     //  get item by index of list 
-    me.getData_Item = function( i )
+    me.getData_Item_byIndex = function( i )
     {
         var list = me.getData_ItemList();
         return list[i];
     };
 
+    me.getData_Item = function( id )
+    {
+        var item;
+        var list = me.getData_ItemList();
+
+        for( var i = 0; i < list.length; i++ )
+        {
+            var itemTemp = list[i];
+            if ( itemTemp.id === id )
+            {
+                item = itemTemp;
+                break;
+            }
+        }
+
+        return item;
+    };
+
     // -----------------
 
-    me.createFormItem = function( id )
+    me.createFormItem = function()
     {
         var input_firstName = $('#firstname');
         var input_lastName = $('#lastname');
@@ -164,8 +196,12 @@ function App()
         var input_country = $('#country');
         var input_phoneNumber = $('#phoneNumber');
         
+        var dateNow = new Date();
+        var idStr = dateNow.getTime().toString();
+
         var info = {
-            id: id.toString(),
+            id: idStr,
+            date: dateNow.toString(),
             firstname: input_firstName.val(),
             lastname: input_lastName.val(),
             gender: input_gender.val(),
@@ -173,6 +209,13 @@ function App()
             country: input_country.val(),
             phoneNumber: input_phoneNumber.val(),
         }
+
+        input_firstName.val('');
+        input_lastName.val('');
+        input_gender.val('');
+        input_birth.val('');
+        input_country.val('');
+        input_phoneNumber.val('');
 
         return info;
     };
@@ -208,7 +251,7 @@ function App()
             </div>
             <div class="list_content">
                 <div class="list_date">
-                    ${item.id}
+                    ${item.date}
                 </div>
                 <div class="list_user">
                     ${item.firstname} ${item.lastname}
@@ -219,12 +262,113 @@ function App()
 
         itemTag.click( function( e ) {
 
-            console.log( item );
-            alert( JSON.stringify( item ) );
+            //console.log( item );
+            //alert( JSON.stringify( item ) );
+
+            // View Switch..
+            me.detail.classList.remove('hide_view');
+            me.main.classList.add('hide_view');
+            // me.switchView( me.detail );  $( 'mainLvlView' ).hide();  .remove( '' )  //  inputView.add( -- );
+
+            var clickedItemId = $( this ).attr( 'item-id' );
+            console.log( 'itemId: ' + clickedItemId );
+
+            var clickedItem = me.getData_Item( clickedItemId );
+
+            var itemDetailContentTag = me.detailPage.find( 'div.detail_container' );
+
+            me.resetItemDetailDisplay( itemDetailContentTag );
+            me.setItemDetailDisplay( clickedItem, itemDetailContentTag );
+
         });
 
         return itemTag;
     };
+
+    me.resetItemDetailDisplay = function( detailContentTag )
+    {
+        detailContentTag.html( '' );        
+    };
+
+    me.setItemDetailDisplay = function( item, detailContentTag )
+    {
+        detailContentTag.append( JSON.stringify( item ) )
+        //alert( JSON.stringify( item ) );
+        detailContentTag.html( `<div class="detail_content_top" style="margin-top:5px;">
+                                    <div class="list_icon">
+                                        <img src="images/logo.svg" style="width:40px; height:40px;">
+                                    </div>
+                                    <div class="divContent">
+                                        <div>
+                                            ${item.date}
+                                        </div>
+                                        <div>
+                                            ${item.firstname} ${item.lastname}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="detail_content" style="margin-top: 20px;">
+                                    <label >First Name</label>
+                                    <div class="dataValue">${item.firstname}</div>
+                                    <br>
+                                    <label >Last Name</label>
+                                    <div class="dataValue">${item.lastname}</div>
+                                    <br>
+                                    <label >Gender</label>
+                                    <div class="dataValue">${item.gender}</div>
+                                    <br>
+                                    <label >Birth</label>
+                                    <div class="dataValue">${item.birth}</div>
+                                    <br>
+                                    <label >Phone Number</label>
+                                    <div class="dataValue">${item.phoneNumber}</div>
+                                </div>`);
+        
+
+    };
+
+    // ----------------------------
+
+    me.links.forEach(function( link )
+    {
+        link.addEventListener('click',function(e)
+        {
+            var clickedLink = e.currentTarget.getAttribute('id');
+            //me.clickedLink.classList.remove('hide_view');
+            if(clickedLink === 'log')
+            {
+                var result = confirm('log out');
+                if(result)
+                {
+                    me.log.classList.remove('hide_view');
+                    me.sidebar.classList.remove('show-sidebar');
+                    me.main.classList.add('hide_view');
+                };
+            }
+            if(clickedLink === 'entry')
+            {
+                me.entry.classList.remove('hide_view');
+                me.sidebar.classList.remove('show-sidebar');
+                me.main.classList.add('hide_view');
+            }
+            if(clickedLink === 'about')
+            {
+                me.about.classList.remove('hide_view');
+                me.sidebar.classList.remove('show-sidebar');
+                me.main.classList.add('hide_view');
+            }
+            if(clickedLink === 'setting')
+            {
+                me.setting.classList.remove('hide_view');
+                me.sidebar.classList.remove('show-sidebar');
+                me.main.classList.add('hide_view');
+            }
+            
+        })
+    });
+
+    
+    
 
     // ----------------------------
     me.testJqueryP = function()
