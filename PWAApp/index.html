@@ -35,14 +35,18 @@
         <link rel="icon" type="image/png" href="images/icons/icon-144x144.png">
         <!-- END OF - COPY SETUP FROM SAMPLE PWA APP -->
     
-
-        <title>BK APP</title>
+        <!--script> var verNo = '1.1'; </script-->
+        <title>BK APP v1.1</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/all.min.css">
-        <script src="js/serviceWorkerStart.js"></script>        
+
+        <script src="js/swManager.js"></script>        
         <script src="js/libraries/jquery-3.4.1.min.js"></script>
 
+        <script src="js/dataManager.js"></script>
+
         <script src="js/bkService.js"></script>
+
         <script src="js/itemList.js"></script>
         <script src="js/itemEntry.js"></script>
 
@@ -54,6 +58,8 @@
             {
                 // If Static - is better, but will try later..
                 // App.run();
+                // Service Worker start..
+                SWManager.startUp();
 
                 // App class nstance ones
                 var appObj = new App();
@@ -71,7 +77,7 @@
                 </div>
                 <div class="login_title" style="margin-top: 5px; font:bold; font-size: large;">BK - my first app</div>
                 <div style="margin-top: 10px;">
-                    <label id="spanVersion" style="color: #999999; font-weight: 350; ">Version 1.0.0</label>
+                    <label id="spanVersion" style="color: #999999; font-weight: 350; ">Version 1.1</label>
                 </div>
                 <!-- <p style="border: solid 1px yellow; cursor: pointer;">I am sleepy..</p>
                 <p style="border: solid 1px yellow; cursor: pointer;">I am bad..</p>

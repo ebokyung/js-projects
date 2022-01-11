@@ -44,13 +44,6 @@ function App()
 
 
         // Start background service..
-
-        
-
-        //BKSerivce.addRunFunc( function() {
-        //     me.updateTime_Display();
-        //} );
-
         
         BKSerivce.addRunFunc( me.updateTime_Display );
 
@@ -75,6 +68,16 @@ function App()
 
     me.setupEventsHandle = function()
     {
+
+        var input_usernameTag = $( '.input_username' );
+
+        input_usernameTag.focus( function() 
+        {
+            console.log( 'input_usernameTag focused' );
+            SWManager.checkSWUpdate();
+        });
+    
+    
         me.btnLoginTag.click( function() 
         {
             // Process login here..
@@ -83,12 +86,11 @@ function App()
             
             if( input_username_tag.val() === me.loginID 
                 && input_password_tag.val() === me.loginPW)
-            {
-                alert('login success');
-                
+            {    
+                alert('login success');           
                 //me.loginSuccessRun();
 
-                me.setLastLoginTime( new Date() );
+                DataManager.setLastLoginTime( new Date() );
     
                 me.displayLastLoginTime();
     
@@ -96,7 +98,7 @@ function App()
                 me.main.classList.remove('hide_view');
     
                 me.clearList();        
-                me.displayList( me.getData_ItemList() );
+                me.displayList( DataManager.getData_ItemList() );
     
             }
             else
@@ -121,7 +123,7 @@ function App()
         {
             var item = me.createFormItem();
 
-            me.setData_Item( item );
+            DataManager.setData_Item( item );
             me.addToDisplayList( item );
     
             me.main.classList.remove('hide_view');
@@ -151,67 +153,13 @@ function App()
 
     };
 
-
     // ----------------------------
-
-    me.setLastLoginTime = function( lastLoginTime )
-    {
-        localStorage.setItem( "lastLoginTime", lastLoginTime.toString() );
-    };
 
     me.displayLastLoginTime = function()
     {
-        $('.spanLastLoginTime').text( localStorage.getItem('lastLoginTime') );
+        $('.spanLastLoginTime').text( DataManager.getLastLoginTime() );
     };
-
-
-    // -----------------------------
-
-    me.getData_ItemList = function()
-    {
-        return localStorage.getItem('list') ? JSON.parse( localStorage.getItem('list') ) : [];
-    };
-
-    me.setData_ItemList = function( list )
-    {
-        localStorage.setItem( 'list', JSON.stringify( list ) );
-    };
-
-    me.setData_Item = function( item )
-    {
-        var list = me.getData_ItemList();
-        list.push( item );
-        me.setData_ItemList( list );
-    };
-
-    
-    //  get item by index of list 
-    me.getData_Item_byIndex = function( i )
-    {
-        var list = me.getData_ItemList();
-        return list[i];
-    };
-
-    me.getData_Item = function( id )
-    {
-        var item;
-        var list = me.getData_ItemList();
-
-        for( var i = 0; i < list.length; i++ )
-        {
-            var itemTemp = list[i];
-            if ( itemTemp.id === id )
-            {
-                item = itemTemp;
-                break;
-            }
-        }
-
-        return item;
-    };
-
-    // -----------------
-
+   
     me.createFormItem = function()
     {
         var input_firstName = $('#firstname');
@@ -298,7 +246,7 @@ function App()
             var clickedItemId = $( this ).attr( 'item-id' );
             console.log( 'itemId: ' + clickedItemId );
 
-            var clickedItem = me.getData_Item( clickedItemId );
+            var clickedItem = DataManager.getData_Item( clickedItemId );
 
             var itemDetailContentTag = me.detailPage.find( 'div.detail_container' );
 
