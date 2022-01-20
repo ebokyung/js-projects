@@ -98,8 +98,13 @@ function App()
                 me.main.classList.remove('hide_view');
     
                 me.clearList();        
-                me.displayList( DataManager.getData_ItemList() );
+                //me.displayList( DataManager.getData_ItemList() );
     
+
+                fetch( 'http://localhost:4321/http://localhost:5000/api/getAllItems' ).then( res => {
+                    return res.json();
+                }).then( data => me.displayList( data ) );
+
             }
             else
             {
@@ -123,9 +128,20 @@ function App()
         {
             var item = me.createFormItem();
 
-            DataManager.setData_Item( item );
-            me.addToDisplayList( item );
-    
+            //DataManager.setData_Item( item );
+            //me.addToDisplayList( item );
+            fetch( 'http://localhost:4321/http://localhost:5000/api/addItem',{
+                method: 'POST',
+                body: JSON.stringify( item ),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            } ).then( res => {
+                    return res.json();
+                }).then( data => {
+                    me.addToDisplayList( data ) 
+                });
+            
             me.main.classList.remove('hide_view');
             me.entry.classList.add('hide_view');
         });
@@ -246,13 +262,15 @@ function App()
             var clickedItemId = $( this ).attr( 'item-id' );
             console.log( 'itemId: ' + clickedItemId );
 
-            var clickedItem = DataManager.getData_Item( clickedItemId );
+            //var clickedItem = DataManager.getData_Item( clickedItemId );
+            fetch( `http://localhost:4321/http://localhost:5000/api/getItem/${clickedItemId}` ).then( res => {
+                    return res.json();
+                }).then( data => {
+                    var itemDetailContentTag = me.detailPage.find( 'div.detail_container' );
 
-            var itemDetailContentTag = me.detailPage.find( 'div.detail_container' );
-
-            me.resetItemDetailDisplay( itemDetailContentTag );
-            me.setItemDetailDisplay( clickedItem, itemDetailContentTag );
-
+                    me.resetItemDetailDisplay( itemDetailContentTag );
+                    me.setItemDetailDisplay( data, itemDetailContentTag );
+                } );
         });
 
         return itemTag;
