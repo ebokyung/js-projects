@@ -101,9 +101,31 @@ function App()
                 //me.displayList( DataManager.getData_ItemList() );
     
 
-                fetch( 'http://localhost:4321/http://localhost:5000/api/getAllItems' ).then( res => {
-                    return res.json();
-                }).then( data => me.displayList( data ) );
+                // fetch( 'http://localhost:4321/http://localhost:5000/api/getAllItems' ).then( res => {
+                //     return res.json();
+                // }).then( data => {
+                //     console.log(data)
+                //     console.log(typeof data)
+                //     //me.displayList( data ) 
+                // });
+
+                fetch( `http://localhost:4321/http://localhost:5000/api/mdb` ,{
+                    method: 'POST',
+                    body: JSON.stringify( {
+                        mongoDB:{
+                            find:{}
+                        }
+                    } ),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then( res => {
+                        return res.json();
+                    }).then( data => {
+                        // console.log(data)
+                        // console.log(typeof data.)
+                        me.displayList( data.itemList ) 
+                    });
 
             }
             else
@@ -127,19 +149,35 @@ function App()
         me.btnSubmit.click(function()
         {
             var item = me.createFormItem();
-
+            
             //DataManager.setData_Item( item );
             //me.addToDisplayList( item );
-            fetch( 'http://localhost:4321/http://localhost:5000/api/addItem',{
+            //fetch( 'http://localhost:4321/http://localhost:5000/api/addItem',{
+            //     method: 'POST',
+            //     body: JSON.stringify( item ),
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     }
+            // } ).then( res => {
+            //         return res.json();
+            //     }).then( data => {
+            //         me.addToDisplayList( data ) 
+            //     });
+            fetch( 'http://localhost:4321/http://localhost:5000/api/mdb',{
                 method: 'POST',
-                body: JSON.stringify( item ),
+                body: JSON.stringify( {
+                    mongoDB:{
+                        insert: item
+                    }
+                } ),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             } ).then( res => {
                     return res.json();
                 }).then( data => {
-                    me.addToDisplayList( data ) 
+                    //console.log( data.result.ops[0] )
+                    me.addToDisplayList( data.result.ops[0] ) 
                 });
             
             me.main.classList.remove('hide_view');
@@ -263,13 +301,34 @@ function App()
             console.log( 'itemId: ' + clickedItemId );
 
             //var clickedItem = DataManager.getData_Item( clickedItemId );
-            fetch( `http://localhost:4321/http://localhost:5000/api/getItem/${clickedItemId}` ).then( res => {
+            //fetch( `http://localhost:4321/http://localhost:5000/api/getItem/${clickedItemId}` ).then( res => {
+            //     return res.json();
+            // }).then( data => {
+            //     var itemDetailContentTag = me.detailPage.find( 'div.detail_container' );
+
+            //     me.resetItemDetailDisplay( itemDetailContentTag );
+            //     me.setItemDetailDisplay( data, itemDetailContentTag );
+            // } );
+            fetch( `http://localhost:4321/http://localhost:5000/api/mdb` ,{
+                method: 'POST',
+                body: JSON.stringify( {
+                    mongoDB:{
+                        find:{
+                            id:clickedItemId
+                        }
+                    }
+                } ),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then( res => {
                     return res.json();
                 }).then( data => {
+                    //console.log(data.itemList)
                     var itemDetailContentTag = me.detailPage.find( 'div.detail_container' );
 
                     me.resetItemDetailDisplay( itemDetailContentTag );
-                    me.setItemDetailDisplay( data, itemDetailContentTag );
+                    me.setItemDetailDisplay( data.itemList[0], itemDetailContentTag );
                 } );
         });
 
